@@ -123,15 +123,6 @@ install_panels() {
             -e XRAY_VMESS_AEAD_FORCED=false \
             -p $panel_port:2053 \
             -p $sub_port:2096"
-        
-        for ((port=50000; port<=65535; port++)); do
-            # بررسی اینکه پورت روی میزبان آزاد است
-            if ! lsof -iTCP:"$port" -sTCP:LISTEN -t >/dev/null; then
-                docker_cmd+=" -p $port:$port"
-            else
-                echo "⚠️ پورت $port روی میزبان قبلاً استفاده شده و نادیده گرفته شد."
-            fi
-        done
       
         docker_cmd+=" \
             -v $(pwd)/db/:/etc/x-ui/ \
