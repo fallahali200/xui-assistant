@@ -122,8 +122,12 @@ install_panels() {
         docker_cmd="docker run -itd \
             -e XRAY_VMESS_AEAD_FORCED=false \
             -p $panel_port:2053 \
-            -p $sub_port:2096 \
-            -p 49152-65535:49152-65535"  
+            -p $sub_port:2096"
+        
+        # Add inbound ports to Docker command
+        for ((port=50000; port<=65535; port++)); do
+            docker_cmd+=" -p $port:$port"
+        done
       
         docker_cmd+=" \
             -v $(pwd)/db/:/etc/x-ui/ \
