@@ -78,7 +78,7 @@ install_panels() {
         
         # Ask the user to input inbound ports
         while true; do
-            read -p "Enter inbound ports for panel $i (comma-separated, e.g., 10000,10001,10002): " inbound_ports
+            read -p "Enter inbound ports for panel $i (comma-separated, e.g., 10000,10001,0002): " inbound_ports
             if [[ -z "$inbound_ports" ]]; then
                 echo "Error: Inbound ports cannot be empty. Please try again."
                 continue
