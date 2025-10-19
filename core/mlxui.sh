@@ -126,8 +126,8 @@ install_panels() {
         
         # Add inbound ports to Docker command
         # Map all possible ports (1–65535) for both TCP and UDP
-        docker_cmd+=" -p 1-65535:1-65535/tcp -p 1-65535:1-65535/udp"
-        
+        docker_cmd+=" -p 49152-65535:49152-65535/tcp -p 49152-65535:49152-65535/udp"
+      
         docker_cmd+=" \
             -v $(pwd)/db/:/etc/x-ui/ \
             -v $(pwd)/cert/:/root/cert/ \
