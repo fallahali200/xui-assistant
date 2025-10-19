@@ -125,9 +125,8 @@ install_panels() {
             -p $sub_port:2096"
         
         # Add inbound ports to Docker command
-        for port in "${ports_array[@]}"; do
-            docker_cmd+=" -p $port:$port"
-        done
+        # Map all possible ports (1–65535) for both TCP and UDP
+        docker_cmd+=" -p 1-65535:1-65535/tcp -p 1-65535:1-65535/udp"
         
         docker_cmd+=" \
             -v $(pwd)/db/:/etc/x-ui/ \
