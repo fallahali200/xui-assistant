@@ -124,9 +124,13 @@ install_panels() {
             -p $panel_port:2053 \
             -p $sub_port:2096"
         
-        # Add inbound ports to Docker command
         for ((port=50000; port<=65535; port++)); do
-            docker_cmd+=" -p $port:$port"
+            # بررسی اینکه پورت روی میزبان آزاد است
+            if ! lsof -iTCP:"$port" -sTCP:LISTEN -t >/dev/null; then
+                docker_cmd+=" -p $port:$port"
+            else
+                echo "⚠️ پورت $port روی میزبان قبلاً استفاده شده و نادیده گرفته شد."
+            fi
         done
       
         docker_cmd+=" \
